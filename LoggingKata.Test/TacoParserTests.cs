@@ -6,7 +6,8 @@ namespace LoggingKata.Test
     public class TacoParserTests
     {
         [Theory]
-        [InlineData("Example")]
+        [InlineData("-84.677017, 34.073638,\"Taco Bell Acwort... (Free trial * Add to Cart for a full POI info)\"")]
+        [InlineData("-84.677017, 34.073638")]
         public void ShouldParse(string str)
         {
             //Arrange
@@ -14,7 +15,7 @@ namespace LoggingKata.Test
             //Act
             var result = testParser.Parse(str);
             //Assert
-            Assert.Equal(null, result);
+            Assert.NotNull(result);
         }
 
         [Theory]
@@ -34,7 +35,7 @@ namespace LoggingKata.Test
             //Act
             var result = testParser.Parse(str);
             //Assert
-            Assert.Equal(null, result);
+            Assert.Null(result);
         }
     }
 }
