@@ -13,6 +13,12 @@ namespace LoggingKata
         {
             _logger.LogInfo("Begin parsing");
 
+            if (string.IsNullOrEmpty(line))
+            {
+                _logger.LogWarning("String was empty or null");
+                return null;
+            }
+
             var cells = line.Split(',');
 
             if (cells.Length < 2)
@@ -21,13 +27,16 @@ namespace LoggingKata
                 return null;
             }
 
+            double longitude = 0;
+            double latitude = 0;
+            var name = "";
             try
             {
-                var longitude = double.Parse(cells[0]);
-                var latitude = double.Parse(cells[1]);
+                longitude = double.Parse(cells[0]);
+                latitude = double.Parse(cells[1]);
                 if (cells.Length == 3)
                 {
-                    var name = cells[2];
+                    name = cells[2];
                 }
             }
             catch (Exception e)
@@ -35,8 +44,24 @@ namespace LoggingKata
                 _logger.LogError("Longitude or Latitude were not a valid number", e);
                 return null;
             }
-            //DO not fail if one record parsing fails, return null
-            return null; //TODO Implement
+
+            if (longitude > 180 || longitude < -180 || latitude > 90 || latitude < -90)
+            {
+                _logger.LogWarning("Longitude or Latitude out of bounds");
+                return null;
+            }
+
+            var taco = new TacoBell();
+            var point = new Point
+            {
+                Longitude = longitude,
+                Latitude = latitude
+            };
+
+            taco.Name = name;
+            taco.Location = point;
+
+            return taco;
         }
     }
 }
