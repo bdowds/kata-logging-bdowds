@@ -42,7 +42,7 @@ namespace LoggingKata
                 return null;
             }
 
-            if (Math.Abs(longitude) > 180 || Math.Abs(latitude) > 90)
+            if (Math.Abs(longitude) > Point.MaxLon || Math.Abs(latitude) > Point.MaxLat)
             {
                 _logger.LogWarning("Longitude or Latitude out of bounds");
                 return null;
