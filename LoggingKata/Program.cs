@@ -43,7 +43,7 @@ namespace LoggingKata
                     currentDistance = origin.GetDistanceTo(destination);
                     if (currentDistance > distanceMax)
                     {
-                        distanceMax = currentDistance;
+                        distanceMax = currentDistance
                     }
                 }
             }
