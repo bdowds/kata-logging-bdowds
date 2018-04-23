@@ -26,9 +26,10 @@ namespace LoggingKata
                 return null;
             }
 
-            double longitude = 0;
-            double latitude = 0;
+            var longitude = 0.0;
+            var latitude = 0.0;
             var name = "";
+
             try
             {
                 longitude = double.Parse(cells[0]);
@@ -41,7 +42,7 @@ namespace LoggingKata
                 return null;
             }
 
-            if (longitude > 180 || longitude < -180 || latitude > 90 || latitude < -90)
+            if (Math.Abs(longitude) > 180 || Math.Abs(latitude) > 90)
             {
                 _logger.LogWarning("Longitude or Latitude out of bounds");
                 return null;
