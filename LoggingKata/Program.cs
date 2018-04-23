@@ -13,11 +13,9 @@ namespace LoggingKata
 
         static void Main(string[] args)
         {
-            logger.LogInfo("Log initialized");
+            logger.LogInfo("Log initialized\n");
 
             var lines = File.ReadAllLines(csvPath);
-
-            logger.LogInfo($"Lines: {lines[0]}");
 
             var parser = new TacoParser();
 
@@ -51,9 +49,11 @@ namespace LoggingKata
                 }
             }
 
-            Console.WriteLine($"Location 1 : {location1.Name}");
-            Console.WriteLine($"Location 2 : {location2.Name}");
+            Console.WriteLine($"Location 1 : {location1.Name.Substring(1, location1.Name.IndexOf("(") - 1)}");
+            Console.WriteLine($"Location 2 : {location2.Name.Substring(1, location2.Name.IndexOf("(") - 1)}");
+            Console.WriteLine($"Distance : {Math.Round(distanceMax, 2)} meters");
 
+            logger.LogInfo("Log Complete");
             Console.ReadKey();
         }
     }
