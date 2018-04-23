@@ -29,7 +29,6 @@ namespace LoggingKata.Test
         [InlineData("0, -91")]
         public void ShouldFailParse(string str)
         {
-            // TODO: Complete Should Fail Parse
             //Arrange
             var testParser = new TacoParser();
             //Act

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
+using System.Runtime.InteropServices;
 using GeoCoordinatePortable;
 
 namespace LoggingKata
 {
     class Program
     {
-        //Why do you think we use ILog?
         static readonly ILog logger = new TacoLogger();
         const string csvPath = "TacoBell-US-AL.csv";
 
@@ -23,8 +23,8 @@ namespace LoggingKata
 
             var locations = lines.Select(parser.Parse);
 
-            ITrackable Location1 = null;
-            ITrackable Location2 = null;
+            ITrackable location1 = null;
+            ITrackable location2 = null;
             double distanceMax = 0.0;
             double currentDistance = 0.0;
 
@@ -41,15 +41,20 @@ namespace LoggingKata
                     destination.Latitude = LocB.Location.Latitude;
 
                     currentDistance = origin.GetDistanceTo(destination);
+
                     if (currentDistance > distanceMax)
                     {
-                        distanceMax = currentDistance
+                        distanceMax = currentDistance;
+                        location1 = LocA;
+                        location2 = LocB;
                     }
                 }
             }
 
-            // TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
-            // HINT:  You'll need two nested forloops
+            Console.WriteLine($"Location 1 : {location1.Name}");
+            Console.WriteLine($"Location 2 : {location2.Name}");
+
+            Console.ReadKey();
         }
     }
 }
