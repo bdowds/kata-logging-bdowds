@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
+using GeoCoordinatePortable;
 
 namespace LoggingKata
 {
@@ -22,9 +23,30 @@ namespace LoggingKata
 
             var locations = lines.Select(parser.Parse);
 
-            var location1 = new TacoBell();
-            var location2 = new TacoBell();
-            double distance = 0.0;
+            ITrackable Location1 = null;
+            ITrackable Location2 = null;
+            double distanceMax = 0.0;
+            double currentDistance = 0.0;
+
+            foreach (var LocA in locations)
+            {
+                var origin = new GeoCoordinate();
+                origin.Longitude = LocA.Location.Longitude;
+                origin.Latitude = LocA.Location.Latitude;
+
+                foreach (var LocB in locations)
+                {
+                    var destination = new GeoCoordinate();
+                    destination.Longitude = LocB.Location.Longitude;
+                    destination.Latitude = LocB.Location.Latitude;
+
+                    currentDistance = origin.GetDistanceTo(destination);
+                    if (currentDistance > distanceMax)
+                    {
+                        distanceMax = currentDistance;
+                    }
+                }
+            }
 
             // TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
             // HINT:  You'll need two nested forloops
