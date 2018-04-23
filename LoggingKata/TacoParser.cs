@@ -33,10 +33,7 @@ namespace LoggingKata
             {
                 longitude = double.Parse(cells[0]);
                 latitude = double.Parse(cells[1]);
-                if (cells.Length == 3)
-                {
-                    name = cells[2];
-                }
+                name = (cells.Length == 3) ? cells[2] : "";
             }
             catch (Exception e)
             {
