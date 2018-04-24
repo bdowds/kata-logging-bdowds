@@ -24,21 +24,21 @@ namespace LoggingKata
             ITrackable location2 = null;
             var distanceMax = 0.0;
 
-            foreach (var LocA in locations)
+            foreach (var locA in locations)
             {
-                var origin = new GeoCoordinate(LocA.Location.Latitude, LocA.Location.Longitude);
+                var origin = new GeoCoordinate(locA.Location.Latitude, locA.Location.Longitude);
 
-                foreach (var LocB in locations)
+                foreach (var locB in locations)
                 {
-                    var destination = new GeoCoordinate(LocB.Location.Latitude, LocB.Location.Longitude);
+                    var destination = new GeoCoordinate(locB.Location.Latitude, locB.Location.Longitude);
 
                     var currentDistance = origin.GetDistanceTo(destination);
 
                     if (currentDistance > distanceMax)
                     {
                         distanceMax = currentDistance;
-                        location1 = LocA;
-                        location2 = LocB;
+                        location1 = locA;
+                        location2 = locB;
                     }
                 }
             }
