@@ -5,25 +5,36 @@ namespace LoggingKata.Test
 {
     public class TacoParserTests
     {
-        [Fact]
-        public void ShouldDoSomething()
-        {
-            // TODO: Complete Something, if anything
-        }
-
         [Theory]
-        [InlineData("Example")]
+        [InlineData("-84.677017, 34.073638,\"Taco Bell Acwort... (Free trial * Add to Cart for a full POI info)\"")]
+        [InlineData("-84.677017, 34.073638")]
         public void ShouldParse(string str)
         {
-            // TODO: Complete Should Parse
+            //Arrange
+            var testParser = new TacoParser();
+            //Act
+            var result = testParser.Parse(str);
+            //Assert
+            Assert.NotNull(result);
         }
 
         [Theory]
         [InlineData(null)]
         [InlineData("")]
+        [InlineData("Not a number, Same")]
+        [InlineData("-86.841402")]
+        [InlineData("-181, 0")]
+        [InlineData("181, 0")]
+        [InlineData("0, 91")]
+        [InlineData("0, -91")]
         public void ShouldFailParse(string str)
         {
-            // TODO: Complete Should Fail Parse
+            //Arrange
+            var testParser = new TacoParser();
+            //Act
+            var result = testParser.Parse(str);
+            //Assert
+            Assert.Null(result);
         }
     }
 }
