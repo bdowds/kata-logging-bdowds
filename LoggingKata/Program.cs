@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.IO;
-using System.Runtime.InteropServices;
 using GeoCoordinatePortable;
 
 namespace LoggingKata

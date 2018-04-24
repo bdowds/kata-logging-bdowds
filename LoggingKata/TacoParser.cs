@@ -26,39 +26,37 @@ namespace LoggingKata
                 return null;
             }
 
-            var longitude = 0.0;
-            var latitude = 0.0;
-            var name = "";
-
             try
             {
-                longitude = double.Parse(cells[0]);
-                latitude = double.Parse(cells[1]);
-                name = (cells.Length == 3) ? cells[2] : "";
+                var longitude = double.Parse(cells[0]);
+                var latitude = double.Parse(cells[1]);
+                var name = (cells.Length == 3) ? cells[2] : "";
+
+                if (Math.Abs(longitude) > Point.MaxLon || Math.Abs(latitude) > Point.MaxLat)
+                {
+                    _logger.LogWarning("Longitude or Latitude out of bounds");
+                    return null;
+                }
+
+                var point = new Point
+                {
+                    Longitude = longitude,
+                    Latitude = latitude
+                };
+
+                var taco = new TacoBell
+                {
+                    Name = name,
+                    Location = point
+                };
+
+                return taco;
             }
             catch (Exception e)
             {
                 _logger.LogError("Longitude or Latitude were not a valid number", e);
                 return null;
             }
-
-            if (Math.Abs(longitude) > Point.MaxLon || Math.Abs(latitude) > Point.MaxLat)
-            {
-                _logger.LogWarning("Longitude or Latitude out of bounds");
-                return null;
-            }
-
-            var taco = new TacoBell();
-            var point = new Point
-            {
-                Longitude = longitude,
-                Latitude = latitude
-            };
-
-            taco.Name = name;
-            taco.Location = point;
-
-            return taco;
         }
     }
 }
